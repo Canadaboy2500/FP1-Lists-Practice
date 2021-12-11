@@ -1,0 +1,58 @@
+ranged_weapons = ["bow", "cross bow", "javelins"]
+bladed_weapons = ["knife", "sword", "axe", "spear"]
+blunt_weapons = ["mace", "bludgeon", "hammer", "staff"]
+armour = ["iron",  "steel", "steel plate", "hide", "fur", "leather", "chain mail"]
+equipment_types = [ranged_weapons, bladed_weapons, blunt_weapons, armour]
+player_inv_empty = ["no ranged weapon", "no bladed weapon", "no blunt weapon", "no armour"]
+inv_order = ["ranged weapons", "bladed weapons", "blunt weapons", "armour"]
+
+player_inv = ["no ranged weapon", "no bladed weapon", "no blunt weapon", "no armour"]
+
+def showinventory(inv):
+    for i in inv:
+        print(f"you have {i}")
+
+def armoury():
+    print("""You arrive in the amoury, what do you want to do? you can:
+    1) drop off equipment
+    2) pick up equipment
+    type the number of the option you would like.""")
+    option = input("> ")
+    if option == "1":
+        showinventory(player_inv)
+        print("What would you like to drop off?:")
+        i = 0
+        for item in player_inv:
+            i = i + 1
+            print(f"{i}) drop off {item}")
+        option = (int(input("> "))) - 1
+        print(f"dropped off {player_inv[option]}!")
+        player_inv[option] = player_inv_empty[option]
+        input("> ")
+        armoury()
+    elif option == "2":
+        print("What type of equipment would you like to pick up?:")
+        i = 0
+        for order in inv_order:
+            i = i + 1
+            print(f"{i}) {order}")
+        option = (int(input("> "))) - 1
+        print("Which one would you like?")
+        i = 0
+        for item in equipment_types[option]:
+            i = i + 1
+            print(f"{i}) {item}")
+        choice = (int(input("> "))) - 1
+        print(f"you picked up {equipment_types[option][choice]}!")
+        player_inv[option] = equipment_types[option][choice]
+        input("> ")
+        armoury()
+    else:
+        print("I didn't get that.")
+        print("Press any button to go back")
+        input("> ")
+        armoury()
+  
+armoury()
+
+
